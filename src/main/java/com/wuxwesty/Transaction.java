@@ -13,9 +13,7 @@ public class Transaction {
     private int fromAccountID;
     private int activityTypeID;
     private Date startDate;
-    private String startDateString;
     private Date endDate;
-    private String endDateString;
     private int recurrenceTypeID;
     private int dayOfWeek;
     private int month;
@@ -35,7 +33,6 @@ public class Transaction {
         this.fromAccountID = fromAccountID;
         this.activityTypeID = activityTypeID;
         this.startDate = startDate;
-        this.startDateString =
         this.endDate = endDate;
         this.recurrenceTypeID = recurrentTypeID;
         this.dayOfWeek = dayOfWeek;
@@ -67,8 +64,11 @@ public class Transaction {
         this.transactionID = request.getTransactionID();
     }
 
+    // HELP: Date Format https://stackoverflow.com/questions/6873020/gson-date-format
     public String toJson() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        // Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        //Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         return gson.toJson(this);
     }
 

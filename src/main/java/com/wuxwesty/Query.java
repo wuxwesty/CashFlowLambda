@@ -41,7 +41,7 @@ public class Query {
             //Connection con = DriverManager.getConnection(
             //        url: "jdbc:mysql://Endpoint/DB_Name", user: "User_Name", password: "password");
             con = DriverManager.getConnection(
-                    //        "jdbc:postgresql://wucashflow.cnems7ltlrrb.us-east-1.rds.amazonaws.com:5432/wucashflow", "wucashflow", "wucashflow");
+                    //        "jdbc:postgresql://wucashflow.cnems7ltlrrb.us-east-1.rds.amazoncom:5432/wucashflow", "wucashflow", "wucashflow");
                     url, user, password);
 
         } catch (SQLException e) {

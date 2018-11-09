@@ -42,9 +42,7 @@ public class CashFlow {
         EndDate = endDate;
     }
 
-    public String getDescription() {
-        return Description;
-    }
+    public String getDescription() { return Description; }
 
     public void setDescription(String description) {
         Description = description;

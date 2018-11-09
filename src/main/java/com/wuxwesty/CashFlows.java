@@ -146,7 +146,7 @@ public class CashFlows {
             }
             double amount = 0;
             if (t.getActivityTypeID() == 4) { // Month End
-                cfList.add(createCashFlow(t.getStartDate(), t.getDescription(), false, amount, amountArray));
+                cfList.add(createCashFlow(t.getStartDate(), t.getDescription(), true, amount, amountArray));
             } else {
                 if (t.getActivityTypeID() == 1) {
                     amount = t.getAmount();
