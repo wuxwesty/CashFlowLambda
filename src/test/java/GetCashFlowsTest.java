@@ -57,7 +57,7 @@ public class GetCashFlowsTest {
     public void GetCashFlows() {
         CashFlows cfs = new CashFlows();
         List<CashFlow> cfList = cfs.Generate(accountList, transactionList);
-        int expected = 29; //57;
+        int expected = 13; //29; //57;
         int actual = cfList.size();
         for(CashFlow cf: cfList) {
             log.info(String.format("%tF %tF %s %s %f %f %f %f %f %f", cf.getStartDate(), cf.getEndDate(), cf.getStartDateAWS(), cf.getDescription(), cf.getAmount(), cf.getAmount1(), cf.getAmount2(), cf.getAmount3(), cf.getAmount4(), cf.getAmount5()));
