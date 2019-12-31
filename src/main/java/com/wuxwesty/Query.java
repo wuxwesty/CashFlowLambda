@@ -19,7 +19,7 @@ public class Query {
         user = System.getenv("user");
         logger.log("user:" + user + "\n");
         password = System.getenv("password");
-        logger.log("password:" + password + "\n");
+        //logger.log("password:" + password + "\n");
     }
 
     private Connection getConnection(LambdaLogger logger) {
