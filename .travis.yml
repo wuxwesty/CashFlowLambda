@@ -9,6 +9,8 @@ deploy:
   runtime: java11
   module_name: "com.wuxwesty"
   handler_name: "GetCashFlowsHandler::handleRequest"
+  memory_size: 512
+  timeout: 30
   access_key_id: AKIARVH33RUXXUS7VDOK
   secret_access_key: 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
   zip: ./target/wucashflow-1.0.0.jar
