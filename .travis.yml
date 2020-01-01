@@ -1,4 +1,5 @@
 language: java
+os: linux
 jdk: openjdk11
 deploy:
   provider: lambda
@@ -6,8 +7,8 @@ deploy:
   region: us-east-1
   role: arn:aws:iam::114344824111:role/service-role/wucashflowLambda
   runtime: java11
-  module_name: "com.wuxwesty.GetCashFlowsHandler"
-  handler_name: "handleRequest"
+  module_name: "com.wuxwesty"
+  handler_name: "GetCashFlowsHandler::handleRequest"
   access_key_id: AKIARVH33RUXXUS7VDOK
   secret_access_key: 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
   zip: ./target/wucashflow-1.0.0.jar
