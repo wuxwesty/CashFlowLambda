@@ -1,0 +1,22 @@
+
+
+dependencies {
+    compile (
+    'com.amazonaws:aws-lambda-java-core:1.2.0',
+    'com.amazonaws:aws-lambda-java-events:2.2.7',
+    'com.googlecode.json-simple:json-simple:1.1.1',
+    'com.google.code.gson:gson:2.8.6',
+    'org.postgresql:postgresql:42.2.4',
+    project(':Models')
+    )
+}
+
+task buildZip(type: Zip) {
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.runtimeClasspath
+    }
+}
+
+build.dependsOn buildZip
