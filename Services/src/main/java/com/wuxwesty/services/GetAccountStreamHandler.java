@@ -3,14 +3,15 @@ package com.wuxwesty.services;
 import com.amazonaws.services.lambda.runtime.CognitoIdentity;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.wuxwesty.model.Account;
 import org.json.simple.parser.JSONParser;
 //import jdk.nashorn.internal.parser.JSONParser;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import java.io.*;
-import com.wuxwesty.model.*;
 
 // HELP: https://www.baeldung.com/aws-lambda-api-gateway
+// com.wuxwesty.GetAccountStreamHandler::handleGetByParam
 
 public class GetAccountStreamHandler implements RequestStreamHandler {
 
@@ -19,7 +20,7 @@ public class GetAccountStreamHandler implements RequestStreamHandler {
 
         final CognitoIdentity identity = context.getIdentity();
         final String userID = identity.getIdentityId();
-        Query q = new Query(context.getLogger());
+        Query q = new Query();
         //Account a = q.getAccount(userID, accountIdRequest.getId(), context.getLogger());
 
         JSONParser parser = new JSONParser();
@@ -76,7 +77,7 @@ public class GetAccountStreamHandler implements RequestStreamHandler {
 
         final CognitoIdentity identity = context.getIdentity();
         final String userID = identity.getIdentityId();
-        Query q = new Query(context.getLogger());
+        Query q = new Query();
 
         //AmazonDynamoDB client = AmazonDynamoDBClientBuilder.defaultClient();
         //DynamoDB dynamoDb = new DynamoDB(client);
@@ -92,7 +93,7 @@ public class GetAccountStreamHandler implements RequestStreamHandler {
                 if (pps.get("id") != null) {
                     int id = Integer.parseInt((String) pps.get("id"));
                     //result = dynamoDb.getTable(DYNAMODB_TABLE_NAME).getItem("id", id);
-                    account = q.getAccount(userID, id, context.getLogger());
+                    account = q.getAccount(userID, id);
                 }
             }
             else if (event.get("pathParameters") != null) {
@@ -100,7 +101,7 @@ public class GetAccountStreamHandler implements RequestStreamHandler {
                 if (pps.get("id") != null) {
                     int id = Integer.parseInt((String) pps.get("id"));
                     //result = dynamoDb.getTable(DYNAMODB_TABLE_NAME).getItem("id", id);
-                    account = q.getAccount(userID, id, context.getLogger());
+                    account = q.getAccount(userID, id);
                 }
             }
 

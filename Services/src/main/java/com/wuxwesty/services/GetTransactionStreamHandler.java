@@ -3,12 +3,13 @@ package com.wuxwesty.services;
 import com.amazonaws.services.lambda.runtime.CognitoIdentity;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.wuxwesty.model.Account;
+import com.wuxwesty.model.Transaction;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import com.wuxwesty.model.*;
 
 //import jdk.nashorn.internal.parser.JSONParser;
 
@@ -21,7 +22,7 @@ public class GetTransactionStreamHandler implements RequestStreamHandler {
 
         final CognitoIdentity identity = context.getIdentity();
         final String userID = identity.getIdentityId();
-        Query q = new Query(context.getLogger());
+        Query q = new Query();
         //Account a = q.getAccount(userID, accountIdRequest.getId(), context.getLogger());
 
         JSONParser parser = new JSONParser();
@@ -78,7 +79,7 @@ public class GetTransactionStreamHandler implements RequestStreamHandler {
 
         final CognitoIdentity identity = context.getIdentity();
         final String userID = identity.getIdentityId();
-        Query q = new Query(context.getLogger());
+        Query q = new Query();
 
         //AmazonDynamoDB client = AmazonDynamoDBClientBuilder.defaultClient();
         //DynamoDB dynamoDb = new DynamoDB(client);
@@ -95,7 +96,7 @@ public class GetTransactionStreamHandler implements RequestStreamHandler {
                 if (pps.get("id") != null) {
                     int id = Integer.parseInt((String) pps.get("id"));
                     //result = dynamoDb.getTable(DYNAMODB_TABLE_NAME).getItem("id", id);
-                    t = q.getTransaction(userID, id, context.getLogger());
+                    t = q.getTransaction(userID, id);
                 }
             }
             else if (event.get("pathParameters") != null) {
@@ -103,7 +104,7 @@ public class GetTransactionStreamHandler implements RequestStreamHandler {
                 if (pps.get("id") != null) {
                     int id = Integer.parseInt((String) pps.get("id"));
                     //result = dynamoDb.getTable(DYNAMODB_TABLE_NAME).getItem("id", id);
-                    t = q.getTransaction(userID, id, context.getLogger());
+                    t = q.getTransaction(userID, id);
                 }
             }
 

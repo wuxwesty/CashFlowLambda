@@ -1,35 +1,40 @@
 package com.wuxwesty.services;
 
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
-
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import com.wuxwesty.model.*;
 
+import com.wuxwesty.model.Account;
+import com.wuxwesty.model.Transaction;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+
+@Component
 public class Query {
+
+    static final Logger logger = LogManager.getLogger(Query.class);
 
     String url = "";
     String user = "";
     String password = "";
 
-    public Query(LambdaLogger logger) {
+    public Query() {
         url = System.getenv("url");
-        logger.log("url:" + url + "\n");
+        logger.info("url:" + url + "\n");
         user = System.getenv("user");
-        logger.log("user:" + user + "\n");
+        logger.info("user:" + user + "\n");
         password = System.getenv("password");
         //logger.log("password:" + password + "\n");
     }
 
-    private Connection getConnection(LambdaLogger logger) {
+    private Connection getConnection() {
 
         Connection con = null;
 
         try {
             //Class.forName("com.mysql.jdbc.Driver");
-            logger.log("Finding Driver org.postgresql.Driver\n");
+            logger.info("Finding Driver org.postgresql.Driver\n");
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -38,7 +43,7 @@ public class Query {
 
         // String abc=database.database(input);
         try {
-            logger.log("Opening Connection\n");
+            logger.info("Opening Connection\n");
             //Connection con = DriverManager.getConnection(
             //        url: "jdbc:mysql://Endpoint/DB_Name", user: "User_Name", password: "password");
             con = DriverManager.getConnection(
@@ -51,14 +56,14 @@ public class Query {
         return con;
     }
 
-    private ResultSet runQuery(String query, LambdaLogger logger) {
+    private ResultSet runQuery(String query) {
 
         Connection con = null;
         ResultSet resultSet = null;
 
         // String abc=database.database(input);
         try {
-            con = this.getConnection(logger);
+            con = this.getConnection();
             if (con != null) {
                 Statement statement = con.createStatement();
                 resultSet = statement.executeQuery(query);
@@ -76,14 +81,14 @@ public class Query {
 
     }
 
-    private int runUpdate(String query, LambdaLogger logger) {
+    private int runUpdate(String query) {
 
         Connection con = null;
         int id = 0;
 
         // String abc=database.database(input);
         try {
-            con = this.getConnection(logger);
+            con = this.getConnection();
             if (con != null) {
                 Statement statement = con.createStatement();
                 int affectedRows = statement.executeUpdate(query);
@@ -106,14 +111,14 @@ public class Query {
 
     // HELP: Inserted ID: https://stackoverflow.com/questions/1915166/how-to-get-the-insert-id-in-jdbc
     // HELP: Postgres Serial http://www.postgresqltutorial.com/postgresql-serial/
-    private int runInsert(String query, String identityColumn, LambdaLogger logger) {
+    private int runInsert(String query, String identityColumn) {
 
         Connection con = null;
         int id = 0;
 
         // String abc=database.database(input);
         try {
-            con = this.getConnection(logger);
+            con = this.getConnection();
             if (con != null) {
                 String[] returnId = { identityColumn };
                 PreparedStatement statement = con.prepareStatement(query, returnId);
@@ -154,10 +159,10 @@ public class Query {
 
     }
 
-    private Account resultSetToAccount(ResultSet resultSet, LambdaLogger logger) {
+    private Account resultSetToAccount(ResultSet resultSet) {
         Account item = new Account();
         try {
-            logger.log(resultSet.getString("UserID") + " - " + resultSet.getString("AccountID") + " - " + resultSet.getString("Description") + "\n");
+            logger.info(resultSet.getString("UserID") + " - " + resultSet.getString("AccountID") + " - " + resultSet.getString("Description") + "\n");
             item.setUserID(resultSet.getString("UserID"));
             item.setAccountID(resultSet.getInt("AccountID"));
             item.setAccountTypeID(resultSet.getInt("AccountTypeID"));
@@ -173,16 +178,16 @@ public class Query {
         return item;
     }
 
-    public Account getAccount(String userID, Integer id, LambdaLogger logger) {
+    public Account getAccount(String userID, Integer id) {
         String sql = String.format("select * from public.Account where userid = '%s' and accountid = %d \n", userID, id);
 
         Account account = null;
 
-        logger.log(sql);
+        logger.info(sql);
         try {
-            ResultSet resultSet = this.runQuery(sql, logger);
+            ResultSet resultSet = this.runQuery(sql);
             if (resultSet!= null && resultSet.next()) {
-                account = resultSetToAccount(resultSet, logger);
+                account = resultSetToAccount(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -191,16 +196,16 @@ public class Query {
         return account;
     }
 
-    public Account postAccount(String userID, Account account, LambdaLogger logger) {
+    public Account postAccount(String userID, Account account) {
         String sql = String.format(
                 "insert into public.Account"
                 + "(AccountID,UserID,Description,AccountTypeID,Amount,Rate,Sequence) "
                 + "values(default,'%s','%s',%d,%f,%f,%d) \n"
                 , userID, account.getDescription(), account.getAccountTypeID(), account.getAmount(), account.getRate(), account.getSequence());
 
-        logger.log(sql);
+        logger.info(sql);
         try {
-            int id = this.runInsert(sql, "accountid", logger);
+            int id = this.runInsert(sql, "accountid");
             account.setAccountID(id);
         } catch (Exception e) {
             e.printStackTrace();
@@ -209,7 +214,7 @@ public class Query {
         return account;
     }
 
-    public Account putAccount(String userID, Account account, LambdaLogger logger) {
+    public Account putAccount(String userID, Account account) {
         String sql = String.format(
                 "update public.Account "
                         + "set UserID='%s',"
@@ -227,9 +232,9 @@ public class Query {
                 account.getSequence(),
                 account.getAccountID());
 
-        logger.log(sql);
+        logger.info(sql);
         try {
-            this.runUpdate(sql, logger);
+            this.runUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -237,26 +242,26 @@ public class Query {
         return account;
     }
 
-    public void deleteAccount(String userID, int id, LambdaLogger logger) {
+    public void deleteAccount(String userID, int id) {
         String sql = String.format("delete from public.Account where UserID = '%s' and AccountID = %d \n", userID, id);
 
-        logger.log(sql);
+        logger.info(sql);
         try {
-            this.runQuery(sql, logger);
+            this.runQuery(sql);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public List<Account> getAllAccounts(String userID, LambdaLogger logger) {
+    public List<Account> getAllAccounts(String userID) {
         String sql = String.format("select * from public.Account where UserID = '%s' order by Sequence\n", userID);
         List<Account> list = new ArrayList<Account>();
-        logger.log(sql);
+        logger.info(sql);
         try {
-            ResultSet resultSet = this.runQuery(sql, logger);
+            ResultSet resultSet = this.runQuery(sql);
             while (resultSet!=null && resultSet.next()) {
-                Account account = resultSetToAccount(resultSet, logger);
+                Account account = resultSetToAccount(resultSet);
                 list.add(account);
             }
         } catch (SQLException e) {
@@ -266,10 +271,10 @@ public class Query {
         return list;
     }
 
-    private Transaction resultSetToTransaction(ResultSet resultSet, LambdaLogger logger) {
+    private Transaction resultSetToTransaction(ResultSet resultSet) {
         Transaction item = new Transaction();
         try {
-            logger.log(resultSet.getString("UserID") + " - " + resultSet.getString("TransactionID") + " - " + resultSet.getString("Description") + "\n");
+            logger.info(resultSet.getString("UserID") + " - " + resultSet.getString("TransactionID") + " - " + resultSet.getString("Description") + "\n");
             item.setUserID(resultSet.getString("UserID"));
             item.setTransactionID(resultSet.getInt("TransactionID"));
             item.setAccountID(resultSet.getInt("AccountID"));
@@ -292,16 +297,16 @@ public class Query {
         return item;
     }
 
-    public Transaction getTransaction(String userID, Integer id, LambdaLogger logger) {
+    public Transaction getTransaction(String userID, Integer id) {
         String sql = String.format("select * from public.Transact where userid = '%s' and transactionid = %d \n", userID, id);
 
         Transaction transaction = null;
 
-        logger.log(sql);
+        logger.info(sql);
         try {
-            ResultSet resultSet = this.runQuery(sql, logger);
+            ResultSet resultSet = this.runQuery(sql);
             if (resultSet!= null && resultSet.next()) {
-                transaction = resultSetToTransaction(resultSet, logger);
+                transaction = resultSetToTransaction(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -310,7 +315,7 @@ public class Query {
         return transaction;
     }
 
-    public Transaction postTransaction(String userID, Transaction transaction, LambdaLogger logger) {
+    public Transaction postTransaction(String userID, Transaction transaction) {
         String sql = String.format(
                 "insert into public.Transact"
                         + "(TransactionID, UserID,AccountID,FromAccountID,ActivityTypeID,StartDate,EndDate,RecurrenceTypeID,"
@@ -330,9 +335,9 @@ public class Query {
                 transaction.getAmount()
             );
 
-        logger.log(sql);
+        logger.info(sql);
         try {
-            int  id = this.runInsert(sql, "transactionid", logger);
+            int  id = this.runInsert(sql, "transactionid");
             transaction.setTransactionID(id);
         } catch (Exception e) {
             e.printStackTrace();
@@ -341,7 +346,7 @@ public class Query {
         return transaction;
     }
 
-    public Transaction putTransaction(String userID, Transaction transaction, LambdaLogger logger) {
+    public Transaction putTransaction(String userID, Transaction transaction) {
         String sql = String.format(
                 "update public.Transact "
                 + "set AccountID=%d,"
@@ -370,9 +375,9 @@ public class Query {
                 transaction.getTransactionID()
             );
 
-        logger.log(sql);
+        logger.info(sql);
         try {
-            this.runUpdate(sql, logger);
+            this.runUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -380,26 +385,26 @@ public class Query {
         return transaction;
     }
 
-    public void deleteTransaction(String userID, int id, LambdaLogger logger) {
+    public void deleteTransaction(String userID, int id) {
         String sql = String.format("delete from public.Transact where UserID = '%s' and TransactionID = %d \n", userID, id);
 
-        logger.log(sql);
+        logger.info(sql);
         try {
-            this.runQuery(sql, logger);
+            this.runQuery(sql);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public List<Transaction> getAllTransactions(String userID, LambdaLogger logger) {
+    public List<Transaction> getAllTransactions(String userID) {
         String sql = String.format("select * from public.Transact where UserID = '%s' \n", userID);
         List<Transaction> list = new ArrayList<Transaction>();
-        logger.log(sql);
+        logger.info(sql);
         try {
-            ResultSet resultSet = this.runQuery(sql, logger);
+            ResultSet resultSet = this.runQuery(sql);
             while (resultSet!=null && resultSet.next()) {
-                Transaction transaction = resultSetToTransaction(resultSet, logger);
+                Transaction transaction = resultSetToTransaction(resultSet);
                 list.add(transaction);
             }
         } catch (SQLException e) {

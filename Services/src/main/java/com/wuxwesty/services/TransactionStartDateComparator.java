@@ -1,7 +1,8 @@
 package com.wuxwesty.services;
 
 import java.util.Comparator;
-import com.wuxwesty.model.*;
+
+import com.wuxwesty.model.Transaction;
 
 public class TransactionStartDateComparator implements Comparator<Transaction> {
 

@@ -1,6 +1,6 @@
 package com.wuxwesty.services;
 
-import com.wuxwesty.model.*;
+import com.wuxwesty.model.Transaction;
 
 public class TransactionRequest {
     public TransactionRequest() { }

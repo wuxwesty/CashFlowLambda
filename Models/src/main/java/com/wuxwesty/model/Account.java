@@ -2,7 +2,6 @@ package com.wuxwesty.model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.json.simple.JSONObject;
 
 public class Account {
 

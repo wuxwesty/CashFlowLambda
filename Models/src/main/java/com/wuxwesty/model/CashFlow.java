@@ -1,8 +1,11 @@
-package com.wuxwesty.model;
+package model;
+
+import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Component
 public class CashFlow {
 
     private Date StartDate;

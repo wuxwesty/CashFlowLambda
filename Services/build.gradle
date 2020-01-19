@@ -1,14 +1,29 @@
 
+group = 'com.wuxwesty'
+version = ''
+sourceCompatibility = '11'
+
+ext {
+    springBootVersion = '2.2.2.RELEASE'
+    springCloudVersion = '3.0.1.RELEASE'
+}
+
+repositories {
+    mavenCentral()
+}
 
 dependencies {
-    compile (
-    'com.amazonaws:aws-lambda-java-core:1.2.0',
-    'com.amazonaws:aws-lambda-java-events:2.2.7',
-    'com.googlecode.json-simple:json-simple:1.1.1',
-    'com.google.code.gson:gson:2.8.6',
-    'org.postgresql:postgresql:42.2.4',
-    project(':Models')
-    )
+    compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
+    compile "org.springframework.cloud:spring-cloud-function-web:$springCloudVersion"
+    // implementation 'org.springframework.cloud:spring-cloud-starter-aws'
+    compile "org.springframework.cloud:spring-cloud-function-adapter-aws:$springCloudVersion"
+    compile 'com.amazonaws:aws-lambda-java-core:1.2.0'
+    compile 'com.amazonaws:aws-lambda-java-events:2.2.7'
+    compile 'com.amazonaws:aws-lambda-java-log4j:1.0.0'
+    compile 'com.googlecode.json-simple:json-simple:1.1.1'
+    compile 'com.google.code.gson:gson:2.8.6'
+    compile 'org.postgresql:postgresql:42.2.4'
+    compile project(':Models')
 }
 
 task buildZip(type: Zip) {
