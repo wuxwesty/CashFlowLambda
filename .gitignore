@@ -1,2 +1,4 @@
-/Services/build/
-/Models/build/
+/Services/build/*
+/Models/build/*
+/gradlew
+/gradlew.bat
