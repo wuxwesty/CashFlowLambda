@@ -1,4 +1,4 @@
-package com.wuxwesty.services;
+package com.wuxwesty.functions;
 
 import java.util.Comparator;
 

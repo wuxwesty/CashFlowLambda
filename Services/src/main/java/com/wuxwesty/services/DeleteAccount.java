@@ -1,7 +1,7 @@
 package com.wuxwesty.services;
 
 import org.springframework.stereotype.Component;
-
+import com.wuxwesty.dataaccess.Query;
 import java.util.function.Function;
 
 @Component

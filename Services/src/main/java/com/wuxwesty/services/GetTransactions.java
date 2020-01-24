@@ -5,6 +5,7 @@ import java.util.function.Function;
 
 import com.wuxwesty.model.Transaction;
 import org.springframework.stereotype.Component;
+import com.wuxwesty.dataaccess.Query;
 
 @Component
 public class GetTransactions implements Function<TransactionsRequest, List<Transaction>> {

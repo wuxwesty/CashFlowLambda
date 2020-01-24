@@ -1,18 +1,19 @@
-package com.wuxwesty.services;
+package com.wuxwesty.functions;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 import com.wuxwesty.model.Account;
 import com.wuxwesty.model.CashFlow;
 import com.wuxwesty.model.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CashFlows {
 
-    private Logger log = Logger.getLogger("GetCashFlows");
+    private Logger log = LoggerFactory.getLogger("GetCashFlows");
 
     public CashFlows() {}
 
@@ -60,8 +61,8 @@ public class CashFlows {
                 Date d = t.getStartDate();
                 int addDays = (d.getDay() < t.getDayOfWeek()) ? t.getDayOfWeek() - d.getDay() : 14 - d.getDay();
                 d = new Date(d.getYear(), d.getMonth(), d.getDay() + addDays, 0, 0, 0);
-                log.fine(String.format("d3: %tc %tc %tc", d, dateEnd, t.getEndDate()));
-                log.fine(String.format("d3 check: %d %d", d.compareTo(dateEnd), d.compareTo(t.getEndDate())));
+                log.info(String.format("d3: %tc %tc %tc", d, dateEnd, t.getEndDate()));
+                log.info(String.format("d3 check: %d %d", d.compareTo(dateEnd), d.compareTo(t.getEndDate())));
                 while (d.compareTo(dateEnd) <= 0 && d.compareTo(t.getEndDate()) <= 0) {
                     Transaction t2 = new Transaction(t);
                     t2.setStartDate(d);
@@ -69,8 +70,8 @@ public class CashFlows {
                         projectedArray.add(t2);
                     }
                     d = new Date(d.getYear(), d.getMonth(), d.getDate() + 14, 0, 0, 0);
-                    log.fine(String.format("d3: %tc", d));
-                    log.fine(String.format("d3 check: %d %d", d.compareTo(dateEnd), d.compareTo(t.getEndDate())));
+                    log.info(String.format("d3: %tc", d));
+                    log.info(String.format("d3 check: %d %d", d.compareTo(dateEnd), d.compareTo(t.getEndDate())));
                 }
             }
             if (t.getRecurrenceTypeID() == 4) { // monthly

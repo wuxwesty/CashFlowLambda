@@ -1,3 +1,5 @@
 include 'Models'
 include 'Services'
+include 'DataAccess'
+include 'Functions'
 

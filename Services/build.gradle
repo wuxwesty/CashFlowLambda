@@ -24,6 +24,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.6'
     compile 'org.postgresql:postgresql:42.2.4'
     compile project(':Models')
+    compile project(':DataAccess')
+    compile project(':Functions')
 }
 
 task buildZip(type: Zip) {

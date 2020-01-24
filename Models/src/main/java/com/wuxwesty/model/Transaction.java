@@ -1,13 +1,11 @@
-package model;
+package com.wuxwesty.model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@Component
 public class Transaction {
     private String userID;
     private int transactionID;

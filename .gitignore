@@ -2,3 +2,5 @@
 /Models/build/*
 /gradlew
 /gradlew.bat
+/Functions/build/*
+/DataAccess/build/*

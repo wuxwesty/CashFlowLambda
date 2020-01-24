@@ -5,6 +5,7 @@ import java.util.function.Function;
 
 import com.wuxwesty.model.Account;
 import org.springframework.stereotype.Component;
+import com.wuxwesty.dataaccess.Query;
 
 @Component
 public class GetAccounts implements Function<AccountsRequest, List<Account>> {

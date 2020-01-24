@@ -3,6 +3,7 @@ package com.wuxwesty.services;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
+import com.wuxwesty.dataaccess.Query;
 
 @Component
 public class DeleteTransaction implements Function<TransactionIdRequest, Integer> {

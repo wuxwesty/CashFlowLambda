@@ -1,5 +1,7 @@
 package com.wuxwesty.services;
 
+import com.wuxwesty.dataaccess.Query;
+import com.wuxwesty.functions.CashFlows;
 import com.wuxwesty.model.Account;
 import com.wuxwesty.model.CashFlow;
 import com.wuxwesty.model.Transaction;
@@ -12,10 +14,6 @@ import java.util.List;
 
 @Component("getCashFlows")
 public class GetCashFlows implements Function<List<String>, List<CashFlow>> {
-
-    @Autowired
-    private Query query;
-
     static final Logger logger = LogManager.getLogger(GetCashFlows.class);
 
     //public class GetCashFlowsHandler implements RequestHandler<CashFlowRequest, List<CashFlow>> {
@@ -24,6 +22,7 @@ public class GetCashFlows implements Function<List<String>, List<CashFlow>> {
     @Override
     public List<CashFlow> apply(final List<String> cashFlowRequest) {
         String userID = "";
+        Query query = new Query();
         logger.info("Getting Accounts");
         List<Account> aList = query.getAllAccounts(userID);
         logger.info("Getting Transactions");
