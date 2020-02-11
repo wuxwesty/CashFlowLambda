@@ -6,8 +6,8 @@ image_resource:
   source: {repository: busybox}
 
 inputs:
-  - name: build-output
+  - name: out
 
 run:
   path: ls
-  args: ["build-output"]
+  args: ["out"]

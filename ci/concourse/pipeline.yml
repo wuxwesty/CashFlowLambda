@@ -1,6 +1,6 @@
 
 resources:
-  - name: CashFlowLambda
+  - name: repo
     type: git
     check_every: 10s
     source:
@@ -11,9 +11,9 @@ jobs:
 - name: build
   public: true
   plan:
-  - get: CashFlowLambda
+  - get: repo
     trigger: true
   - task: Build project
-    file: CashFlowLambda/ci/concourse/build.yml
+    file: repo/ci/concourse/build.yml
   - task: Deploy artifact
-    file: CashFlowLambda/ci/concourse/deploy.yml
+    file: repo/ci/concourse/deploy.yml
