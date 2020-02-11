@@ -1,0 +1,14 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: java, tag: openjdk-11-alpine}
+
+inputs:
+  - name: CashflowLambda
+
+outputs:
+  - name: build-output
+
+run:
+  path: "ci/concourse/build.sh"
