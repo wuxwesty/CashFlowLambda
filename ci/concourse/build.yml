@@ -13,4 +13,5 @@ outputs:
   - name: out
 
 run:
-  path: repo/ci/concourse/build.sh
+  path: /bin/sh
+  args: ["repo/ci/concourse/build.sh"]
