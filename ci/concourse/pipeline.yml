@@ -1,8 +1,8 @@
 
 resources:
-  - name: CashflowLambda
+  - name: CashFlowLambda
     type: git
-    check_every: 60s
+    check_every: 10s
     source:
       uri: https://github.com/wuxwesty/CashFlowLambda.git
       branch: master
@@ -11,9 +11,9 @@ jobs:
 - name: build
   public: true
   plan:
-  - get: CashflowLambda
+  - get: CashFlowLambda
     trigger: true
   - task: Build project
-    file: ci/concourse/build.yml
+    file: CashFlowLambda/ci/concourse/build.yml
   - task: Deploy artifact
-    file: ci/concourse/deploy.yml
+    file: CashFlowLambda/ci/concourse/deploy.yml

@@ -5,7 +5,7 @@ image_resource:
   source: {repository: java, tag: openjdk-11-alpine}
 
 inputs:
-  - name: CashflowLambda
+  - name: CashFlowLambda
 
 outputs:
   - name: build-output
