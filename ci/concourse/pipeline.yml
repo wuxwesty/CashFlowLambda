@@ -2,7 +2,7 @@
 resources:
   - name: repo
     type: git
-    check_every: 10s
+    check_every: 120s
     source:
       uri: https://github.com/wuxwesty/CashFlowLambda.git
       branch: master
