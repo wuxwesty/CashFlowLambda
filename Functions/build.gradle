@@ -1,8 +1,11 @@
 
+ext {
+    springBootVersion = '2.2.2.RELEASE'
+    springCloudVersion = '3.0.1.RELEASE'
+}
+
 dependencies {
-    compile (
-            'org.apache.logging.log4j:log4j-api:2.7',
-            'org.apache.logging.log4j:log4j-core:2.7',
-            'org.apache.logging.log4j:log4j-slf4j-impl:2.7',
-            project(':Models')    )
+    //compile "org.springframework.boot:spring-boot-starter-log4j2:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
+    compile project(':Models')
 }

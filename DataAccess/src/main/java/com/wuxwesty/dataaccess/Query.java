@@ -17,11 +17,11 @@ public class Query {
     String password = "";
 
     public Query() {
-        url = System.getenv("url");
+        url = System.getenv("POSTGRES_URL");
         logger.info("url:" + url + "\n");
-        user = System.getenv("user");
+        user = System.getenv("POSTGRES_USER");
         logger.info("user:" + user + "\n");
-        password = System.getenv("password");
+        password = System.getenv("POSTGRES_PASSWORD");
         //logger.log("password:" + password + "\n");
     }
 

@@ -1,6 +1,10 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'java'
+}
 
 group = 'com.wuxwesty'
-version = ''
+version = '1.0.1'
 sourceCompatibility = '11'
 
 ext {
@@ -13,13 +17,14 @@ repositories {
 }
 
 dependencies {
-    compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
+    //compile "org.springframework.boot:spring-boot-starter-log4j2:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
     compile "org.springframework.cloud:spring-cloud-function-web:$springCloudVersion"
     // implementation 'org.springframework.cloud:spring-cloud-starter-aws'
-    compile "org.springframework.cloud:spring-cloud-function-adapter-aws:$springCloudVersion"
-    compile 'com.amazonaws:aws-lambda-java-core:1.2.0'
-    compile 'com.amazonaws:aws-lambda-java-events:2.2.7'
-    compile 'com.amazonaws:aws-lambda-java-log4j:1.0.0'
+    // compile "org.springframework.cloud:spring-cloud-function-adapter-aws:$springCloudVersion"
+    //compile 'com.amazonaws:aws-lambda-java-core:1.2.0'
+    //compile 'com.amazonaws:aws-lambda-java-events:2.2.7'
+    //compile 'com.amazonaws:aws-lambda-java-log4j:1.0.0'
     compile 'com.googlecode.json-simple:json-simple:1.1.1'
     compile 'com.google.code.gson:gson:2.8.6'
     compile 'org.postgresql:postgresql:42.2.4'
@@ -28,6 +33,7 @@ dependencies {
     compile project(':Functions')
 }
 
+/*
 task buildZip(type: Zip) {
     from compileJava
     from processResources
@@ -35,5 +41,8 @@ task buildZip(type: Zip) {
         from configurations.runtimeClasspath
     }
 }
-
 build.dependsOn buildZip
+*/
+bootJar {
+    baseName = 'wucashflow-springboot'
+}
