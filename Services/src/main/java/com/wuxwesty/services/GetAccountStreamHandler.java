@@ -1,8 +1,8 @@
 package com.wuxwesty.services;
 
-import com.amazonaws.services.lambda.runtime.CognitoIdentity;
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+//import com.amazonaws.services.lambda.runtime.CognitoIdentity;
+//import com.amazonaws.services.lambda.runtime.Context;
+//import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.wuxwesty.model.Account;
 import org.json.simple.parser.JSONParser;
 //import jdk.nashorn.internal.parser.JSONParser;
@@ -13,13 +13,14 @@ import com.wuxwesty.dataaccess.Query;
 // HELP: https://www.baeldung.com/aws-lambda-api-gateway
 // com.wuxwesty.GetAccountStreamHandler::handleGetByParam
 
+/*
 public class GetAccountStreamHandler implements RequestStreamHandler {
 
     public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context)
         throws IOException {
 
-        final CognitoIdentity identity = context.getIdentity();
-        final String userID = identity.getIdentityId();
+        //final CognitoIdentity identity = context.getIdentity();
+        final String userID = "";
         Query q = new Query();
         //Account a = q.getAccount(userID, accountIdRequest.getId(), context.getLogger());
 
@@ -126,3 +127,4 @@ public class GetAccountStreamHandler implements RequestStreamHandler {
         writer.write(responseJson.toString());
         writer.close();
     }}
+*/

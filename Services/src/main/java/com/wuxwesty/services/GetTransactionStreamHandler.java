@@ -1,8 +1,8 @@
 package com.wuxwesty.services;
 
-import com.amazonaws.services.lambda.runtime.CognitoIdentity;
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+//import com.amazonaws.services.lambda.runtime.CognitoIdentity;
+//import com.amazonaws.services.lambda.runtime.Context;
+//import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.wuxwesty.model.Account;
 import com.wuxwesty.model.Transaction;
 import org.json.simple.JSONObject;
@@ -15,6 +15,7 @@ import java.io.*;
 
 // HELP: https://www.baeldung.com/aws-lambda-api-gateway
 
+/*
 public class GetTransactionStreamHandler implements RequestStreamHandler {
 
     public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context)
@@ -129,3 +130,4 @@ public class GetTransactionStreamHandler implements RequestStreamHandler {
         writer.write(responseJson.toString());
         writer.close();
     }}
+*/
