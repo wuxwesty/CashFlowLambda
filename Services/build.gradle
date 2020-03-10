@@ -43,6 +43,16 @@ task buildZip(type: Zip) {
 }
 build.dependsOn buildZip
 */
+
+jar {
+  manifest {
+    attributes(
+      'Main-Class': 'com.wuwesty.services.Main'
+    }
+  }
+}
+
 bootJar {
     baseName = 'wucashflow-springboot'
+    baseName = 'services'
 }
